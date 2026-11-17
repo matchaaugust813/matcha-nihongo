@@ -1,0 +1,17 @@
+{
+  "name": "Matcha no Nihongo — Kartu Kosakata",
+  "short_name": "MNN Kosakata",
+  "description": "Kartu kosakata & pengulangan berjarak (SRS) untuk buku Minna no Nihongo, lengkap dengan audio pelafalan.",
+  "id": "/",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#12161f",
+  "theme_color": "#12161f",
+  "lang": "id",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

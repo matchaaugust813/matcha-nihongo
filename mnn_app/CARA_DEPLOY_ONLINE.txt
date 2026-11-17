@@ -1,0 +1,213 @@
+CARA MEMBUAT APLIKASI INI ONLINE + PAKAI AKUN (100% GRATIS)
+=============================================================
+
+Ada 2 hal terpisah yang perlu disiapkan, dan KEDUANYA GRATIS
+tanpa kartu kredit:
+
+  A. SUPABASE   -> tempat akun & progres belajar disimpan (cloud)
+  B. NETLIFY    -> tempat aplikasi ini "online"-kan (hosting statis)
+
+Kalau kamu cuma mau online-kan tanpa fitur akun (progres tetap
+per-browser seperti sebelumnya), langsung lompat ke BAGIAN B.
+
+
+=============================================================
+BAGIAN A — SETUP SUPABASE (AKUN & SINKRONISASI PROGRES)
+=============================================================
+
+1. Buka https://supabase.com -> klik "Start your project" -> daftar
+   pakai email atau akun GitHub (gratis, tidak perlu kartu kredit).
+
+2. Klik "New Project". Isi nama bebas (mis. "mnn-kosakata"), buat
+   password database (simpan, tapi kamu tidak akan butuh ini lagi
+   untuk aplikasi), pilih region terdekat (mis. Singapore), lalu
+   klik "Create new project". Tunggu 1-2 menit sampai project siap.
+
+3. Buat tabel penyimpanan progres:
+   - Di sidebar kiri, klik "SQL Editor" -> "New query"
+   - Salin-tempel SQL di bawah ini, lalu klik "Run":
+
+   -----------------------------------------------------------
+   create table public.progress (
+     user_id uuid primary key references auth.users(id) on delete cascade,
+     srs jsonb default '{}'::jsonb,
+     streak jsonb default '{}'::jsonb,
+     prefs jsonb default '{}'::jsonb,
+     reviewlog jsonb default '{}'::jsonb,
+     updated_at timestamptz default now()
+   );
+
+   alter table public.progress enable row level security;
+
+   create policy "Pengguna kelola datanya sendiri"
+     on public.progress
+     for all
+     using (auth.uid() = user_id)
+     with check (auth.uid() = user_id);
+   -----------------------------------------------------------
+
+   Ini membuat satu tabel "progress" (satu baris per akun), dan
+   mengunci akses supaya SETIAP orang HANYA bisa membaca/menulis
+   datanya sendiri (Row Level Security) -- orang lain tidak bisa
+   mengintip progres belajarmu meskipun mereka juga pakai aplikasi
+   yang sama.
+
+4. (Disarankan untuk penggunaan pribadi) Matikan konfirmasi email
+   supaya daftar akun langsung bisa dipakai tanpa menunggu klik
+   link di email:
+   - Sidebar kiri -> "Authentication" -> "Providers" -> "Email"
+   - Matikan toggle "Confirm email" -> Save
+   (Boleh dilewati kalau kamu tetap mau verifikasi email aktif,
+   nanti user tinggal cek emailnya sebelum bisa masuk pertama kali.)
+
+5. Ambil kunci API:
+   - Sidebar kiri -> "Project Settings" (ikon gerigi) -> "API"
+   - Salin nilai "Project URL"
+   - Salin nilai "anon public" (di bagian "Project API keys")
+
+6. Buka file "config.js" di folder aplikasi ini pakai Notepad/
+   text editor apa saja, lalu ganti dua baris ini dengan
+   nilai yang kamu salin di langkah 5:
+
+     url: "https://xxxxxxxxxxxx.supabase.co",
+     anonKey: "eyJhbGc...(kunci panjang, tempel semuanya)...",
+
+   Simpan file-nya. Selesai -- fitur akun sudah aktif.
+
+
+=============================================================
+BAGIAN B — DEPLOY ONLINE PAKAI NETLIFY (DRAG & DROP, GRATIS)
+=============================================================
+
+Cara ini TIDAK butuh command line, TIDAK butuh install apa pun.
+
+1. Buka https://app.netlify.com/drop di browser.
+
+2. Buka File Explorer / Finder, cari folder aplikasi ini
+   (folder yang isinya index.html, app.js, dst).
+
+3. SERET (drag) seluruh folder itu ke kotak besar di halaman
+   Netlify Drop tadi. Tunggu proses upload selesai (file audio-nya
+   lumayan banyak, jadi mungkin makan waktu 1-3 menit tergantung
+   koneksi).
+
+4. Selesai! Netlify akan memberimu alamat seperti:
+     https://nama-acak-1234.netlify.app
+   Buka alamat itu di HP atau laptop mana saja -- aplikasi sudah
+   online dan bisa dipakai dari mana saja.
+
+5. (Opsional) Supaya link ini tidak hilang dan bisa kamu update
+   lagi nanti, klik "Save to your account" / daftar akun Netlify
+   gratis (bisa pakai Google/GitHub). Di dashboard, kamu juga bisa
+   ganti nama subdomainnya jadi lebih rapi, misalnya:
+     https://kartu-mnn.netlify.app
+   (Site settings -> Change site name)
+
+6. Kalau nanti kamu edit file (misalnya update config.js), tinggal
+   drag folder yang sama lagi ke halaman "Deploys" di dashboard
+   Netlify site kamu -- akan otomatis update.
+
+
+ALTERNATIF LAIN (kalau lebih suka)
+-----------------------------------
+- Cloudflare Pages (pages.cloudflare.com) -> juga gratis, ada
+  opsi upload folder langsung tanpa command line.
+- GitHub Pages -> gratis, tapi perlu bikin repo GitHub dan upload
+  filenya ke sana (Settings -> Pages -> aktifkan).
+Semua pilihan di atas 100% gratis untuk skala pemakaian pribadi
+seperti ini (jauh di bawah batas gratisnya).
+
+
+=============================================================
+BAGIAN C — JADIKAN APK ANDROID (GRATIS, TANPA CODING)
+=============================================================
+SYARAT: Bagian A & B di atas HARUS sudah selesai dulu (aplikasi
+sudah online lewat Netlify/dsb dengan alamat https://...). APK
+Android ini nantinya "membungkus" alamat online tersebut, jadi
+harus sudah ada link online-nya dulu.
+
+File-file pendukung (manifest.json, ikon aplikasi, dan sw.js
+untuk mode offline) SUDAH disiapkan di dalam folder ini -- kamu
+tidak perlu bikin apa-apa lagi sebelum lanjut ke bawah ini.
+
+1. Buka https://www.pwabuilder.com
+
+2. Tempel alamat Netlify kamu (mis. https://kartu-mnn.netlify.app)
+   di kotak yang tersedia -> klik "Start".
+
+3. Tunggu PWABuilder selesai memindai. Karena manifest & service
+   worker sudah disiapkan, skornya seharusnya sudah bagus/hijau.
+
+4. Klik "Package For Stores" -> pilih platform "Android".
+
+5. Di jendela pengaturan Android:
+   - Package ID: bebas, format kebalikan domain, mis.
+     "com.namamu.mnnkosakata"
+   - App name / Launcher name: sudah otomatis terisi dari
+     manifest.json ("Minna no Nihongo — Kartu Kosakata")
+   - Signing: pilih opsi "Create new signing key" / "Generate
+     signed package" (BUKAN "unsigned") -- supaya APK-nya
+     langsung bisa diinstal tanpa langkah tanda-tangan manual
+     tambahan.
+   - Simpan baik-baik file kunci (.keystore/.jks) yang nanti
+     didownload bersama APK -- kamu akan butuh file kunci yang
+     SAMA kalau suatu saat mau update aplikasinya.
+   - Minimum Android version bisa dibiarkan default (biasanya
+     sudah mendukung Android 5 ke atas, jadi otomatis mencakup
+     Android 10 ke atas).
+
+6. Klik "Generate" / "Download". Kamu akan dapat file .zip berisi:
+   - file .apk (untuk instal langsung ke HP / dites dulu)
+   - file .aab (kalau suatu saat mau upload ke Google Play Store)
+   - assetlinks.json + petunjuk singkatnya
+
+7. (Sangat disarankan) Supaya aplikasi tampil FULL tanpa address
+   bar Chrome di atasnya (terlihat seperti aplikasi native asli):
+   - Ambil file "assetlinks.json" dari hasil download tadi
+   - Buat folder baru bernama ".well-known" di dalam folder
+     aplikasi ini, taruh assetlinks.json di dalamnya
+   - Deploy ulang ke Netlify (drag folder yang sudah ditambah
+     .well-known/assetlinks.json itu)
+   Kalau langkah ini dilewati, aplikasi tetap berjalan normal,
+   cuma akan terlihat address bar kecil di bagian atas layar.
+
+8. Instal ke HP Android (10 ke atas):
+   - Pindahkan file .apk ke HP (lewat kabel USB, Google Drive,
+     WhatsApp ke diri sendiri, atau download langsung di HP)
+   - Buka file .apk di HP -> kalau muncul peringatan "Install
+     dari sumber tidak dikenal", izinkan untuk aplikasi yang
+     kamu pakai membuka file itu (Chrome/File Manager)
+   - Tap "Install" -> selesai, ikon aplikasi muncul di layar HP
+     seperti aplikasi biasa, lengkap dengan ikon kartu kosakata
+     yang sudah dibuatkan.
+
+Aplikasi di dalam APK ini akan memuat konten dari alamat online-
+mu (Netlify) setiap dibuka, dan tetap otomatis tersinkron ke
+akun Supabase yang sama seperti versi web -- karena memang APK
+ini "jendela" ke website yang sama, bukan salinan terpisah.
+
+
+=============================================================
+CATATAN PENTING
+=============================================================
+- Selama config.js masih berisi "GANTI_DENGAN_...", aplikasi
+  otomatis berjalan seperti versi lokal biasa: progres tersimpan
+  di browser itu saja, tanpa layar login. Aman untuk dites dulu
+  sebelum setup Supabase.
+- Setelah Supabase aktif, saat pertama kali dibuka akan muncul
+  layar "Masuk / Daftar". Ada juga tombol "Lanjutkan tanpa akun"
+  kalau suatu saat kamu (atau orang lain yang pakai link-nya)
+  cuma mau coba-coba tanpa bikin akun.
+- Batas gratis Supabase: 500MB database (progres belajar cuma
+  berupa teks/angka, jadi ini akan tahan untuk RIBUAN tahun
+  pemakaian) dan project akan "tidur" otomatis kalau tidak
+  diakses 7 hari berturut-turut (project gratis) -- tapi akan
+  otomatis aktif lagi begitu ada yang membuka aplikasinya, cuma
+  loading pertama sedikit lebih lambat.
+- Batas gratis Netlify: 100GB transfer/bulan -- aplikasi ini
+  cuma 16MB, jadi cukup untuk puluhan ribu kali buka per bulan.
+- PWABuilder 100% gratis (proyek open source dari Microsoft),
+  tidak ada batas jumlah APK yang bisa dibuat.
+- Tips: kalau File Explorer/Finder menolak bikin folder bernama
+  ".well-known" (diawali titik), pakai Command Prompt/Terminal:
+  ketik "mkdir .well-known" di dalam folder aplikasi ini.

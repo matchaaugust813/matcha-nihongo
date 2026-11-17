@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.netlify.matchanonihongo.twa",
+        "sha256_cert_fingerprints": ["02:79:FB:E0:F2:AE:E0:A2:0C:17:95:5E:BD:BE:B6:9D:2C:D5:E4:42:16:3C:21:2F:DE:BB:23:0F:7A:66:57:11"]
+      }
+    }]

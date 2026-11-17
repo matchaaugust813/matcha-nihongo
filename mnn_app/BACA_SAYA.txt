@@ -1,0 +1,111 @@
+MINNA NO NIHONGO — KARTU KOSAKATA
+===================================
+Aplikasi flashcard buatan khusus dari deck Anki-mu, lengkap dengan
+2.068 kosakata dari 50 bab, furigana, aksen nada, arti Bahasa Indonesia,
+2.215 audio pelafalan asli (NHK-2016 / Shinmeikai / dsb), ditambah
+76 kosakata tambahan (kata sifat, kata benda, kata kerja) di luar 50 bab.
+
+
+CARA MEMBUKA
+-------------
+1. Ekstrak (unzip) folder ini ke mana saja di komputermu.
+2. Klik dua kali file "index.html" — akan terbuka otomatis di browser
+   (Chrome, Edge, atau Firefox disarankan).
+3. Selesai. Semua data, font, & audio berjalan langsung dari folder
+   ini, TIDAK perlu internet, TIDAK perlu instal apa pun.
+
+Jika audio tidak berbunyi saat dibuka langsung (beberapa versi Chrome
+kadang membatasi ini), jalankan server lokal sederhana sebagai
+alternatif:
+   - Buka folder ini lewat Terminal / Command Prompt
+   - Jalankan:  python -m http.server 8000
+   - Buka browser ke:  http://localhost:8000
+
+
+CARA PAKAI
+-----------
+- Halaman utama menampilkan rak 50 bab (Jilid I: Bab 1–25,
+  Jilid II: Bab 26–50), plus bagian "Kosakata Tambahan" (Kata Sifat,
+  Kata Benda, Kata Kerja) di bagian bawah. Klik satu kartu untuk
+  mulai belajar, atau klik tombol besar "Mulai Sesi Hari Ini" untuk
+  mengulang semua kartu yang sudah jatuh tempo di seluruh bab sekaligus.
+- Saat memilih bab, kamu bisa pilih: Perlu Diulang, Kosakata Baru,
+  atau Semua Kosakata Bab Ini.
+- Ketuk kartu (atau tekan SPASI) untuk membaliknya.
+- Setelah kartu terbalik, nilai jujur dirimu sendiri:
+     Lupa (1) · Sulit (2) · Ingat (3) · Mudah (4)
+  Di setiap tombol ada perkiraan kapan kartu itu akan muncul lagi
+  (mis. "12mnt", "1hr", "6hr") — persis seperti Anki, dihitung dari
+  tingkat kesulitan yang kamu pilih. Kartu yang kamu anggap sulit akan
+  lebih sering muncul, yang mudah akan makin jarang.
+- Kartu bab di halaman utama juga menunjukkan estimasi "berikutnya
+  jatuh tempo dalam ..." kalau belum ada yang perlu diulang hari ini.
+- Ikon kaca pembesar membuka pencarian kosakata lintas seluruh deck
+  (bisa cari pakai kanji, hiragana, atau arti Indonesia).
+- Ikon grafik batang membuka halaman Statistik: grafik aktivitas
+  14 hari terakhir, akurasi jawaban, sebaran Baru/Belajar/Lancar,
+  dan progres per Jilid.
+- Ikon lingkaran (paling kiri) membuka pemilih Tema: Dark (kota malam
+  dengan bulan sabit), Light (pastel cerah, lembut di mata), dan
+  Japanese (krem washi dengan sakura & gerbang torii). Pilihanmu
+  tersimpan otomatis untuk kunjungan berikutnya.
+- Ikon panah melingkar (reset) menghapus semua progres belajar dan
+  memulai dari nol — akan diminta konfirmasi dulu, jadi aman dari
+  ketidaksengajaan.
+- Saklar "Furigana" di layar belajar menampilkan bacaan kanji di
+  bagian DEPAN kartu — nyalakan kalau kamu masih ingin bantuan
+  bacaan, matikan untuk melatih ingatan murni.
+
+Catatan tentang kosakata tambahan: 76 kata (sifat/benda/kerja) ini
+dikurasi terpisah dari deck Anki aslimu dan sudah difilter otomatis
+agar tidak duplikat dengan 2.068 kata yang sudah ada. Karena bukan
+dari deck asli, kartu-kartu ini tidak memiliki audio pelafalan.
+
+
+MAU DIBUKA ONLINE DARI HP/LAPTOP MANA SAJA, PAKAI AKUN?
+---------------------------------------------------------
+Bisa! Lihat file "CARA_DEPLOY_ONLINE.txt" di folder ini -- ada
+panduan lengkap (dan 100% gratis) untuk:
+  1. Menambahkan sistem akun (login) supaya progres tersinkron
+     ke cloud, bukan cuma tersimpan di satu browser.
+  2. Meng-online-kan aplikasi ini supaya bisa dibuka dari HP,
+     laptop, atau browser mana saja lewat sebuah link.
+  3. Membungkusnya jadi file APK yang bisa diinstal langsung di
+     HP Android (10 ke atas), tetap tersambung ke web & akun
+     yang sama.
+Kalau langkah-langkah itu belum kamu lakukan, aplikasi ini tetap
+berjalan normal seperti biasa (lihat bagian di bawah).
+
+
+DATA TERSIMPAN DI MANA? (kalau BELUM setup akun di atas)
+-------------------------------------------------------------
+Semua progres belajarmu (jadwal pengulangan, streak harian, riwayat
+statistik, dsb) disimpan lokal di browser (localStorage) pada
+komputer ini saja. Ini artinya:
+  - Progres TIDAK ikut ter-backup kalau kamu pindah/hapus folder ini
+    ke tempat lain — pindahkan seluruh folder bersama-sama.
+  - Kalau kamu bersihkan cache/data situs pada browser, progres akan
+    hilang.
+  - Progres berbeda antar browser (mis. Chrome vs Firefox dianggap
+    dua tempat penyimpanan terpisah).
+  - Ingin mulai ulang kapan saja? Pakai tombol reset di halaman
+    utama — tidak perlu utak-atik browser secara manual.
+
+
+ISI FOLDER
+-----------
+  index.html              -> file utama, buka ini
+  style.css               -> tampilan/desain
+  app.js                  -> logika aplikasi, penjadwalan, statistik
+  data.js                 -> seluruh data kosakata 50 bab (tertanam, offline)
+  extra_data.js           -> 76 kosakata tambahan (sifat/benda/kerja)
+  audio/                  -> 2.215 file audio pelafalan asli
+  fonts/                  -> font Noto Sans JP Black (tertanam, offline)
+  config.js                -> pengaturan akun cloud (kosong = nonaktif)
+  sync.js                  -> logika login & sinkronisasi akun (opsional)
+  manifest.json, sw.js,
+  icons/                   -> supaya aplikasi bisa di-install & dibungkus APK
+  CARA_DEPLOY_ONLINE.txt   -> panduan online-kan + akun + APK Android (gratis)
+
+
+Selamat belajar — 頑張って！

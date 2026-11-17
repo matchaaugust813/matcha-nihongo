@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Matcha no Nihongo — Kartu Kosakata</title>
+<meta name="description" content="Aplikasi flashcard kosakata Minna no Nihongo, lengkap 50 bab dengan furigana, aksen nada, dan audio asli." />
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#12161f" />
+<link rel="icon" href="icons/icon-192.png" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<!-- ============ DARK: kota malam, bulan sabit & siluet tertidur ============ -->
+<svg class="bg-ornament" data-bg="dark" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <g fill="#cdd8ee" opacity="0.4">
+    <circle cx="180" cy="70" r="1.6"/><circle cx="340" cy="150" r="1.2"/><circle cx="500" cy="60" r="1.4"/>
+    <circle cx="80" cy="220" r="1.1"/><circle cx="620" cy="110" r="1.3"/><circle cx="260" cy="280" r="1.2"/>
+    <circle cx="740" cy="200" r="1.5"/><circle cx="420" cy="320" r="1.1"/><circle cx="900" cy="80" r="1.3"/>
+    <circle cx="1000" cy="220" r="1.2"/><circle cx="60" cy="380" r="1.3"/><circle cx="560" cy="230" r="1.1"/>
+    <circle cx="820" cy="330" r="1.4"/><circle cx="150" cy="450" r="1.1"/><circle cx="700" cy="400" r="1.2"/>
+  </g>
+  <g fill="#dbe3f5" opacity="0.55">
+    <circle cx="230" cy="120" r="2.2"/><circle cx="960" cy="150" r="2.4"/><circle cx="480" cy="180" r="2"/>
+    <circle cx="120" cy="300" r="2.1"/><circle cx="650" cy="60" r="2.3"/>
+  </g>
+
+  <g fill="#1c2436" opacity="0.6">
+    <rect x="0" y="840" width="1440" height="60"/>
+    <rect x="30" y="760" width="54" height="140"/>
+    <rect x="96" y="790" width="34" height="110"/>
+    <rect x="150" y="750" width="46" height="150"/>
+    <rect x="880" y="770" width="42" height="130"/>
+    <rect x="932" y="720" width="56" height="180"/>
+    <rect x="1000" y="800" width="30" height="100"/>
+    <rect x="1050" y="760" width="48" height="140"/>
+    <rect x="1120" y="710" width="40" height="190"/>
+    <polygon points="948,720 960,660 972,720"/>
+  </g>
+
+  <mask id="moonMask">
+    <rect x="1030" y="20" width="280" height="280" fill="#fff"/>
+    <circle cx="1276" cy="104" r="84" fill="#000"/>
+  </mask>
+  <circle cx="1180" cy="126" r="90" fill="#dbe3f5" opacity="0.22" mask="url(#moonMask)"/>
+
+  <g fill="#c7d2ea" opacity="0.20" transform="translate(1122,168)">
+    <path d="M4,26 C-6,10 4,-10 24,-12 C42,-14 56,-2 54,14 C68,10 76,24 66,34 C52,48 22,50 8,38 C-2,30 0,32 4,26 Z"/>
+    <circle cx="10" cy="-6" r="12"/>
+  </g>
+</svg>
+
+<!-- ============ LIGHT: gumpalan pastel lembut ============ -->
+<svg class="bg-ornament" data-bg="light" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <filter id="softBlurLight" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="70"/>
+    </filter>
+  </defs>
+  <g filter="url(#softBlurLight)">
+    <circle cx="140" cy="90" r="170" fill="#eccbe6" opacity="0.55"/>
+    <circle cx="1310" cy="140" r="210" fill="#c9d9f2" opacity="0.5"/>
+    <circle cx="180" cy="820" r="190" fill="#f5dfc4" opacity="0.5"/>
+    <circle cx="1260" cy="840" r="200" fill="#d3e8cf" opacity="0.5"/>
+    <circle cx="720" cy="450" r="240" fill="#f0e2ee" opacity="0.28"/>
+  </g>
+</svg>
+
+<!-- ============ JAPANESE: sakura & gerbang torii ============ -->
+<svg class="bg-ornament" data-bg="japanese" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <path id="jpPetal" d="M0,0 C-6,-8 -7,-17 -2,-22 L0,-18 L2,-22 C7,-17 6,-8 0,0 Z"/>
+    <g id="jpBlossom">
+      <use href="#jpPetal"/>
+      <use href="#jpPetal" transform="rotate(72)"/>
+      <use href="#jpPetal" transform="rotate(144)"/>
+      <use href="#jpPetal" transform="rotate(216)"/>
+      <use href="#jpPetal" transform="rotate(288)"/>
+      <circle r="3" fill="#e8a24f" opacity="0.9"/>
+    </g>
+  </defs>
+
+  <!-- cabang sakura, sudut kiri-atas -->
+  <g opacity="0.22" transform="translate(0,0)">
+    <path d="M-20,10 C40,20 90,50 130,95 C150,118 165,140 175,165" fill="none" stroke="#8a5a4a" stroke-width="4" stroke-linecap="round"/>
+    <path d="M60,45 C75,30 95,22 115,25" fill="none" stroke="#8a5a4a" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M100,80 C118,68 138,64 155,70" fill="none" stroke="#8a5a4a" stroke-width="2.5" stroke-linecap="round"/>
+    <g fill="#e8a2ae">
+      <use href="#jpBlossom" transform="translate(20,14) scale(1.3)"/>
+      <use href="#jpBlossom" transform="translate(70,35) scale(1.0)"/>
+      <use href="#jpBlossom" transform="translate(115,22) scale(1.1)"/>
+      <use href="#jpBlossom" transform="translate(135,68) scale(0.9)"/>
+      <use href="#jpBlossom" transform="translate(160,95) scale(1.2)"/>
+      <use href="#jpBlossom" transform="translate(95,58) scale(0.8)"/>
+      <use href="#jpBlossom" transform="translate(175,140) scale(1.0)"/>
+      <use href="#jpPetal" transform="translate(200,60) scale(1.4) rotate(40)"/>
+      <use href="#jpPetal" transform="translate(230,130) scale(1.1) rotate(-20)"/>
+      <use href="#jpPetal" transform="translate(50,120) scale(1.2) rotate(70)"/>
+    </g>
+  </g>
+
+  <!-- cabang sakura, sudut kanan-bawah -->
+  <g opacity="0.22" transform="translate(1440,900) scale(-1,-1)">
+    <path d="M-20,10 C40,20 90,50 130,95 C150,118 165,140 175,165" fill="none" stroke="#8a5a4a" stroke-width="4" stroke-linecap="round"/>
+    <path d="M60,45 C75,30 95,22 115,25" fill="none" stroke="#8a5a4a" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M100,80 C118,68 138,64 155,70" fill="none" stroke="#8a5a4a" stroke-width="2.5" stroke-linecap="round"/>
+    <g fill="#e8a2ae">
+      <use href="#jpBlossom" transform="translate(20,14) scale(1.3)"/>
+      <use href="#jpBlossom" transform="translate(70,35) scale(1.0)"/>
+      <use href="#jpBlossom" transform="translate(115,22) scale(1.1)"/>
+      <use href="#jpBlossom" transform="translate(135,68) scale(0.9)"/>
+      <use href="#jpBlossom" transform="translate(160,95) scale(1.2)"/>
+      <use href="#jpBlossom" transform="translate(95,58) scale(0.8)"/>
+      <use href="#jpBlossom" transform="translate(175,140) scale(1.0)"/>
+      <use href="#jpPetal" transform="translate(200,60) scale(1.4) rotate(40)"/>
+      <use href="#jpPetal" transform="translate(230,130) scale(1.1) rotate(-20)"/>
+      <use href="#jpPetal" transform="translate(50,120) scale(1.2) rotate(70)"/>
+    </g>
+  </g>
+
+  <!-- kelopak melayang tersebar -->
+  <g fill="#e8a2ae" opacity="0.18">
+    <use href="#jpPetal" transform="translate(500,120) scale(1.1) rotate(15)"/>
+    <use href="#jpPetal" transform="translate(780,300) scale(0.9) rotate(-40)"/>
+    <use href="#jpPetal" transform="translate(950,500) scale(1.2) rotate(60)"/>
+    <use href="#jpPetal" transform="translate(350,600) scale(1.0) rotate(-15)"/>
+    <use href="#jpPetal" transform="translate(1100,250) scale(0.8) rotate(30)"/>
+    <use href="#jpPetal" transform="translate(600,750) scale(1.1) rotate(-55)"/>
+  </g>
+
+  <!-- gerbang torii, tengah bawah -->
+  <g transform="translate(620,660)" opacity="0.24">
+    <rect x="34" y="30" width="16" height="200" fill="#a8402c" rx="2"/>
+    <rect x="150" y="30" width="16" height="200" fill="#a8402c" rx="2"/>
+    <path d="M0,30 Q100,2 200,30 L200,46 Q100,20 0,46 Z" fill="#a8402c"/>
+    <path d="M12,52 Q100,32 188,52 L188,62 Q100,44 12,62 Z" fill="#a8402c"/>
+    <rect x="34" y="100" width="132" height="10" fill="#a8402c"/>
+  </g>
+</svg>
+<div class="app" id="app-root"></div>
+
+<script src="data.js"></script>
+<script src="extra_data.js"></script>
+
+<!-- Sinkronisasi akun (opsional). Lihat config.js untuk mengaktifkan. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="sync.js"></script>
+<!-- app.js dimuat otomatis oleh sync.js setelah proses login/sinkron selesai -->
+
+<script>
+  // Daftarkan service worker supaya aplikasi bisa "diinstall" (syarat PWA/APK) & jalan offline.
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("sw.js").catch(function (e) {
+        console.warn("[sw] gagal daftar:", e);
+      });
+    });
+  }
+</script>
+</body>
+</html>

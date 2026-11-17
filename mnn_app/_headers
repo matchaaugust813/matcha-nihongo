@@ -1,0 +1,12 @@
+/sw.js
+  Cache-Control: no-cache
+
+/.well-known/assetlinks.json
+  Content-Type: application/json
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+
+/well-known/assetlinks.json
+  Content-Type: application/json
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff

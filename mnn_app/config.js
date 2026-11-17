@@ -16,6 +16,6 @@
    dites dulu sebelum kamu setting Supabase.
    ========================================================= */
 window.SUPABASE_CONFIG = {
-  url: "https://ijjfuokaivkhizsemmts.supabase.co",
-  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlqamZ1b2thaXZraGl6c2VtbXRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU4Mzk4NDAsImV4cCI6MjEwMTQxNTg0MH0.pqG86_9RBbyKhgb6PQa3Za4Q76oYgzWW5xYG284QQ78"
+  url: "YOUR URL",
+  anonKey: "YOUR ANONKEY"
 };
